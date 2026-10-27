@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_card_wizard_view_form" model="ir.ui.view">
+        <field name="name">stock.card.wizard.form</field>
+        <field name="model">stock.card.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Stock Card Report">
+                <field name="allowed_location_ids" invisible="1"/>
+                <group>
+                    <group string="Report">
+                        <field name="report_mode" widget="radio"/>
+                        <field name="interval" widget="radio" options="{'horizontal': true}"
+                               attrs="{'invisible': [('report_mode', '!=', 'summary')]}"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Period">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group string="Scope">
+                        <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="warehouse_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="location_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                        <field name="include_child_locations"/>
+                        <field name="group_by_location"/>
+                    </group>
+                </group>
+                <group string="Products">
+                    <group>
+                        <field name="categ_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                        <field name="product_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="storable_only"/>
+                        <field name="show_valuation"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_view_html" string="View Report" type="object"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button name="action_print_pdf" string="Print PDF" type="object"
+                            class="btn-secondary" data-hotkey="w"/>
+                    <button name="action_export_xlsx" string="Export XLSX" type="object"
+                            class="btn-secondary" data-hotkey="e"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_card_wizard" model="ir.actions.act_window">
+        <field name="name">Stock Card</field>
+        <field name="res_model">stock.card.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_card_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

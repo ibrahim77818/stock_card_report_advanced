@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Self-contained layout (header / article / footer) instead of
+        web.external_layout, whose company address block has a data-dependent
+        height.
+
+        Geometry (measured on Odoo's patched wkhtmltopdf): the header is drawn
+        from (margin_top - header_spacing) DOWNWARDS, so header_spacing is the
+        room reserved for the header and must be >= its height:
+            header top    = 30 - 26 = 4 mm
+            header bottom = 4 + 19  = 23 mm   (fixed-height box, see scss)
+            body top      = 30 mm  -> 7 mm clear gap, no overlap possible.
+    -->
+    <template id="report_stock_card">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="30"/>
+            <t t-set="data_report_header_spacing" t-value="26"/>
+            <t t-set="data_report_landscape" t-value="True"/>
+            <t t-set="val" t-value="meta['show_valuation']"/>
+
+            <!-- ============================== HEADER ============================== -->
+            <div class="header o_sc_header">
+                <table class="o_sc_header_table">
+                    <tr>
+                        <td class="o_sc_brand">
+                            <table class="o_sc_brand_table">
+                                <tr>
+                                    <td t-if="company.logo" class="o_sc_logo_cell">
+                                        <img class="o_sc_logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                                    </td>
+                                    <td class="o_sc_company_cell">
+                                        <div class="o_sc_company_name"><span dir="auto" t-esc="company.name"/></div>
+                                        <div class="o_sc_company_line" t-if="company_address"><span dir="auto" t-esc="company_address"/></div>
+                                        <div class="o_sc_company_line" t-if="company_contact">
+                                            <span dir="auto" t-esc="company_contact"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="o_sc_title_cell">
+                            <div class="o_sc_kicker">Inventory Report</div>
+                            <div class="o_sc_title">Stock Card</div>
+                            <div class="o_sc_period" t-attf-style="color: #{accent};">
+                                <span t-esc="meta['date_from_display']"/>
+                                <span class="o_sc_period_sep" t-esc="'—'"/>
+                                <span t-esc="meta['date_to_display']"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="o_sc_header_rule" t-attf-style="background-color: #{accent};"/>
+            </div>
+
+            <!-- ============================== BODY ============================== -->
+            <div class="article o_stock_card_pdf" t-att-data-oe-lang="lang">
+
+                <table class="o_sc_tiles">
+                    <tr>
+                        <td class="o_sc_tile" t-attf-style="border-#{'right' if is_rtl else 'left'}: 3px solid #{accent};">
+                            <div class="o_sc_tile_label">Period</div>
+                            <div class="o_sc_tile_value">
+                                <span dir="auto" t-esc="meta['date_from_display']"/>
+                                <span class="o_sc_muted" t-esc="'—'"/>
+                                <span dir="auto" t-esc="meta['date_to_display']"/>
+                            </div>
+                            <div class="o_sc_tile_sub" t-esc="meta['tz']"/>
+                            <div class="o_sc_tile_sub o_sc_mode" t-attf-style="color: #{accent};" t-esc="meta['mode_label']"/>
+                        </td>
+                        <td class="o_sc_tile" t-attf-style="border-#{'right' if is_rtl else 'left'}: 3px solid #{accent};">
+                            <div class="o_sc_tile_label">Locations</div>
+                            <!-- one single-direction line each: QtWebKit mis-measures mixed Arabic / Latin lines -->
+                            <div t-foreach="meta.get('locations_lines') or [meta['locations_label']]" t-as="loc_line"
+                                 class="o_sc_tile_value"><span dir="auto" t-esc="loc_line"/></div>
+                            <div t-if="meta['group_by_location']" class="o_sc_tile_sub">One card per product and location</div>
+                        </td>
+                        <td class="o_sc_tile" t-attf-style="border-#{'right' if is_rtl else 'left'}: 3px solid #{accent};">
+                            <div class="o_sc_tile_label">Products</div>
+                            <div class="o_sc_tile_value"><span dir="auto" t-esc="meta['products_label']"/></div>
+                        </td>
+                        <td class="o_sc_tile" t-attf-style="border-#{'right' if is_rtl else 'left'}: 3px solid #{accent};">
+                            <div class="o_sc_tile_label">Product Categories</div>
+                            <div class="o_sc_tile_value"><span dir="auto" t-esc="meta['categories_label']"/></div>
+                        </td>
+                        <td class="o_sc_tile o_sc_tile_kpi">
+                            <div class="o_sc_tile_label">Stock Cards</div>
+                            <div class="o_sc_kpi" t-esc="meta['group_count']"/>
+                        </td>
+                        <td class="o_sc_tile o_sc_tile_kpi">
+                            <div class="o_sc_tile_label">Movements</div>
+                            <div class="o_sc_kpi" t-esc="meta['move_count']"/>
+                        </td>
+                        <td t-if="val" class="o_sc_tile o_sc_tile_value_kpi" t-attf-style="border-#{'right' if is_rtl else 'left'}: 3px solid #{accent};">
+                            <div class="o_sc_tile_label">Stock Value</div>
+                            <!-- money = digits + currency symbol: one self-contained LTR run (QtWebKit
+                                 mis-measures mixed-direction runs at the end of an RTL line) -->
+                            <div class="o_sc_kpi_money"><span dir="ltr" t-esc="money(meta['total_closing_value'])"/></div>
+                            <div class="o_sc_tile_sub">Opening Value</div>
+                            <div class="o_sc_tile_sub"><span dir="ltr" t-esc="money(meta['total_opening_value'])"/></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="o_sc_generated">Generated on <span t-esc="meta['generated_at']"/></div>
+
+                <div t-if="not report['groups']" class="o_sc_empty">
+                    No stock movement matches the selected filters.
+                </div>
+
+                <t t-set="detail" t-value="meta['report_mode'] == 'detail'"/>
+                <t t-set="ncols" t-value="(8 if detail else 4) + (1 if val else 0)"/>
+                <t t-foreach="report['groups']" t-as="group">
+                    <table class="o_sc_table">
+                        <thead>
+                            <tr class="o_sc_band">
+                                <th t-att-colspan="ncols" t-attf-style="background-color: #{accent};">
+                                    <table class="o_sc_band_table">
+                                        <tr>
+                                            <td class="o_sc_band_title">
+                                                <span class="o_sc_band_product" dir="auto" t-esc="group['product_name']"/>
+                                                <t t-if="group['location_name']">
+                                                    <span class="o_sc_band_sep" t-esc="'|'"/>
+                                                    <span class="o_sc_band_location" dir="auto" t-esc="group['location_name']"/>
+                                                </t>
+                                            </td>
+                                            <td class="o_sc_band_uom">UoM: <span t-esc="group['uom_name']"/></td>
+                                        </tr>
+                                    </table>
+                                </th>
+                            </tr>
+                            <tr class="o_sc_stats">
+                                <th t-att-colspan="ncols">
+                                    <table class="o_sc_stats_table">
+                                        <tr>
+                                            <td class="o_sc_stat">
+                                                <div class="o_sc_stat_label">Opening Balance</div>
+                                                <div class="o_sc_stat_value"><span dir="ltr" t-esc="fmt(group['opening'])"/></div>
+                                                <div t-if="val" class="o_sc_stat_money"><span dir="ltr" t-esc="money(group['opening_value'])"/></div>
+                                            </td>
+                                            <td class="o_sc_stat o_sc_stat_in">
+                                                <div class="o_sc_stat_label">Total In</div>
+                                                <div class="o_sc_stat_value"><span dir="ltr" t-esc="fmt(group['qty_in'])"/></div>
+                                            </td>
+                                            <td class="o_sc_stat o_sc_stat_out">
+                                                <div class="o_sc_stat_label">Total Out</div>
+                                                <div class="o_sc_stat_value"><span dir="ltr" t-esc="fmt(group['qty_out'])"/></div>
+                                            </td>
+                                            <td class="o_sc_stat o_sc_stat_closing">
+                                                <div class="o_sc_stat_label">Closing Balance</div>
+                                                <div class="o_sc_stat_value"><span dir="ltr" t-esc="fmt(group['closing'])"/></div>
+                                                <div t-if="val" class="o_sc_stat_money"><span dir="ltr" t-esc="money(group['closing_value'])"/></div>
+                                            </td>
+                                            <td t-if="val" class="o_sc_stat">
+                                                <div class="o_sc_stat_label">Unit Cost</div>
+                                                <div class="o_sc_stat_value"><span dir="ltr" t-esc="money(group['unit_cost'], price=True)"/></div>
+                                            </td>
+                                            <td class="o_sc_stat">
+                                                <div class="o_sc_stat_label">Movements</div>
+                                                <div class="o_sc_stat_value" t-esc="group['move_count']"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </th>
+                            </tr>
+                            <tr t-if="detail" class="o_sc_cols">
+                                <th class="o_sc_c_date">Date</th>
+                                <th class="o_sc_c_ref">Reference / Origin</th>
+                                <th class="o_sc_c_type">Move Type</th>
+                                <th class="o_sc_c_loc">Source Location</th>
+                                <th class="o_sc_c_loc">Destination Location</th>
+                                <th class="o_sc_c_num">In Quantity</th>
+                                <th class="o_sc_c_num">Out Quantity</th>
+                                <th class="o_sc_c_num">Running Balance</th>
+                                <th t-if="val" class="o_sc_c_num o_sc_c_value">
+                                    <div>Balance Value</div>
+                                    <div class="o_sc_cur" t-esc="meta['currency_name']"/>
+                                </th>
+                            </tr>
+                            <tr t-else="" class="o_sc_cols o_sc_cols_totals">
+                                <th t-if="meta['interval'] == 'day'" class="o_sc_t_date">Date</th>
+                                <th t-else="" class="o_sc_t_date">Period</th>
+                                <th class="o_sc_c_num">In Quantity</th>
+                                <th class="o_sc_c_num">Out Quantity</th>
+                                <th class="o_sc_c_num">Running Balance</th>
+                                <th t-if="val" class="o_sc_c_num o_sc_c_value">
+                                    <div>Balance Value</div>
+                                    <div class="o_sc_cur" t-esc="meta['currency_name']"/>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="o_sc_opening">
+                                <td t-att-colspan="7 if detail else 3">Opening Balance</td>
+                                <td class="o_sc_num"><span dir="ltr" t-esc="fmt(group['opening'])"/></td>
+                                <td t-if="val" class="o_sc_num"><span dir="ltr" t-esc="amount(group['opening_value'])"/></td>
+                            </tr>
+                            <t t-foreach="group['lines']" t-as="line">
+                                <tr t-if="detail" t-att-class="'o_sc_line o_sc_odd' if line_index % 2 else 'o_sc_line'">
+                                    <td class="o_sc_nowrap" t-esc="line['date_display']"/>
+                                    <td>
+                                        <div class="o_sc_ref"><span dir="auto" t-esc="line['reference']"/></div>
+                                        <!-- PO / SO number with its bill / invoice beside it: one LTR run -->
+                                        <div t-if="line['origin'] or line['invoice_refs']" class="o_sc_origin">
+                                            <span dir="ltr"><span t-esc="line['origin']"/><t t-if="line['invoice_refs']"><span class="o_sc_inv_sep" t-esc="' · '"/><span class="o_sc_inv" t-esc="line['invoice_refs']"/></t></span>
+                                        </div>
+                                    </td>
+                                    <td t-att-class="'o_sc_type o_sc_type_%s' % line['move_type']" t-esc="line['move_type_label']"/>
+                                    <!-- virtual locations (vendors, customers, adjustments, scrap...) are left blank -->
+                                    <td><span t-if="not line['src_virtual']" dir="auto" t-esc="line['src_name']"/></td>
+                                    <td><span t-if="not line['dst_virtual']" dir="auto" t-esc="line['dst_name']"/></td>
+                                    <td class="o_sc_num o_sc_in"><span t-if="line['qty_in']" dir="ltr" t-esc="fmt(line['qty_in'])"/></td>
+                                    <td class="o_sc_num o_sc_out"><span t-if="line['qty_out']" dir="ltr" t-esc="fmt(line['qty_out'])"/></td>
+                                    <td t-att-class="'o_sc_num o_sc_bal o_sc_negative' if line['running_balance'] &lt; 0 else 'o_sc_num o_sc_bal'"><span dir="ltr" t-esc="fmt(line['running_balance'])"/></td>
+                                    <td t-if="val" t-att-class="'o_sc_num o_sc_value o_sc_negative' if line['balance_value'] &lt; 0 else 'o_sc_num o_sc_value'"><span dir="ltr" t-esc="amount(line['balance_value'])"/></td>
+                                </tr>
+                                <tr t-else="" t-att-class="'o_sc_line o_sc_odd' if line_index % 2 else 'o_sc_line'">
+                                    <td class="o_sc_nowrap" t-esc="line['date_display']"/>
+                                    <td class="o_sc_num o_sc_in"><span t-if="line['qty_in']" dir="ltr" t-esc="fmt(line['qty_in'])"/></td>
+                                    <td class="o_sc_num o_sc_out"><span t-if="line['qty_out']" dir="ltr" t-esc="fmt(line['qty_out'])"/></td>
+                                    <td t-att-class="'o_sc_num o_sc_bal o_sc_negative' if line['running_balance'] &lt; 0 else 'o_sc_num o_sc_bal'"><span dir="ltr" t-esc="fmt(line['running_balance'])"/></td>
+                                    <td t-if="val" t-att-class="'o_sc_num o_sc_value o_sc_negative' if line['balance_value'] &lt; 0 else 'o_sc_num o_sc_value'"><span dir="ltr" t-esc="amount(line['balance_value'])"/></td>
+                                </tr>
+                            </t>
+                            <tr class="o_sc_total">
+                                <td t-att-colspan="5 if detail else 1" class="o_sc_total_label">Totals / Closing Balance</td>
+                                <td class="o_sc_num"><span dir="ltr" t-esc="fmt(group['qty_in'])"/></td>
+                                <td class="o_sc_num"><span dir="ltr" t-esc="fmt(group['qty_out'])"/></td>
+                                <td class="o_sc_num"><span dir="ltr" t-esc="fmt(group['closing'])"/></td>
+                                <td t-if="val" class="o_sc_num"><span dir="ltr" t-esc="amount(group['closing_value'])"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+
+            <!-- ============================== FOOTER ============================== -->
+            <div class="footer o_sc_footer">
+                <table class="o_sc_footer_table">
+                    <tr>
+                        <td class="o_sc_footer_left">
+                            <div class="o_sc_footer_doc">Stock Card</div>
+                            <div class="o_sc_footer_company"><span dir="auto" t-esc="company.name"/></div>
+                        </td>
+                        <td class="o_sc_footer_right">Page <span class="page"/> / <span class="topage"/></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

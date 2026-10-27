@@ -1,0 +1,140 @@
+.o_stock_card_report {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background-color: $o-view-background-color;
+
+    .o_sc_toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 16px 24px 8px;
+        border-bottom: 1px solid $border-color;
+    }
+    .o_sc_h { margin: 0; font-weight: 600; }
+    .o_sc_period { color: $text-muted; margin-top: 2px; }
+    .o_sc_dot { margin: 0 6px; color: $text-muted; }
+    .o_sc_actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .o_sc_filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px 24px;
+    }
+    .o_sc_chip {
+        font-size: 0.85em;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background-color: rgba($o-brand-primary, 0.08);
+        color: $body-color;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_sc_body {
+        flex: 1 1 auto;
+        overflow: auto;
+        padding: 0 24px 24px;
+    }
+    .o_sc_state { padding: 48px 0; text-align: center; color: $text-muted; }
+    .o_sc_state_alert { margin-top: 24px; }
+
+    .o_sc_subbar {
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 0;
+        background-color: $o-view-background-color;
+    }
+    .o_sc_search { max-width: 320px; }
+    .o_sc_count { color: $text-muted; font-size: 0.9em; margin-right: auto; }
+
+    .o_sc_table {
+        margin-bottom: 0;
+        font-variant-numeric: tabular-nums;
+
+        thead th {
+            position: sticky;
+            top: 50px;
+            z-index: 2;
+            background-color: $gray-100;
+            border-bottom: 2px solid $border-color;
+            white-space: nowrap;
+        }
+        .o_sc_c_date { width: 10%; }
+        .o_sc_c_ref { width: 14%; }
+        .o_sc_c_type { width: 11%; }
+        .o_sc_c_loc { width: 14%; }
+        .o_sc_c_num { width: 8.5%; text-align: right; }
+        .o_sc_cur { font-size: 0.75em; color: $text-muted; font-weight: 400; }
+        .o_sc_value { color: $gray-700; }
+        .o_sc_cols_totals .o_sc_t_date { width: 36%; }
+        .o_sc_cols_totals .o_sc_c_num { width: 16%; }
+        .o_sc_inv { font-weight: 600; }
+
+        .o_sc_type { font-size: 0.85em; font-weight: 600; color: $gray-600; white-space: nowrap; }
+        .o_sc_type_purchase, .o_sc_type_receipt { color: darken($success, 8%); }
+        .o_sc_type_sale, .o_sc_type_delivery, .o_sc_type_pos { color: $primary; }
+        .o_sc_type_purchase_return, .o_sc_type_sale_return, .o_sc_type_return { color: darken($warning, 25%); }
+        .o_sc_type_scrap { color: $danger; }
+        .o_sc_type_inventory_in, .o_sc_type_inventory_out { color: #7c3aed; }
+        .o_sc_type_mrp_produce, .o_sc_type_mrp_consume, .o_sc_type_unbuild { color: $info; }
+
+        .o_sc_num { text-align: right; white-space: nowrap; }
+        .o_sc_nowrap { white-space: nowrap; }
+        .o_sc_in { color: darken($success, 8%); }
+        .o_sc_out { color: darken($danger, 5%); }
+        .o_sc_bal { font-weight: 600; }
+
+        .o_sc_group_row {
+            cursor: pointer;
+            background-color: $o-view-background-color;
+            td { border-top: 1px solid $border-color; padding-top: 8px; padding-bottom: 8px; }
+            &:hover td { background-color: rgba($o-brand-primary, 0.05); }
+            .o_sc_caret { color: $text-muted; }
+            .o_sc_product { font-weight: 600; }
+            .o_sc_badge {
+                margin-left: 8px;
+                background-color: $gray-200;
+                color: $gray-700;
+                font-weight: 500;
+            }
+            .o_sc_meta_small { margin-left: 10px; font-size: 0.85em; color: $text-muted; }
+            // totals reports: the card title only spans the narrow Date / Period
+            // column, so its figures go on their own line instead of wrapping
+            .o_sc_group_stacked .o_sc_group_meta {
+                display: block;
+                padding-left: 1.28571429em; // fa-fw caret width
+                .o_sc_meta_small:first-child { margin-left: 0; }
+            }
+        }
+        tbody.o_sc_open .o_sc_group_row td { background-color: rgba($o-brand-primary, 0.06); }
+
+        .o_sc_opening td { font-style: italic; font-weight: 600; background-color: $gray-100; }
+        .o_sc_line td { vertical-align: top; }
+        .o_sc_line:hover td { background-color: rgba($o-brand-primary, 0.03); }
+        .o_sc_origin { font-size: 0.85em; color: $text-muted; }
+        .o_sc_total td {
+            font-weight: 700;
+            border-top: 2px solid $gray-600;
+            border-bottom: 2px solid $gray-600;
+        }
+        .o_sc_loading_row td { color: $text-muted; }
+    }
+
+    @media (max-width: 767.98px) {
+        .o_sc_toolbar, .o_sc_filters { padding-left: 12px; padding-right: 12px; }
+        .o_sc_body { padding: 0 12px 12px; }
+        .o_sc_table_wrap { overflow-x: auto; }
+        .o_sc_table { min-width: 1080px; }
+    }
+}

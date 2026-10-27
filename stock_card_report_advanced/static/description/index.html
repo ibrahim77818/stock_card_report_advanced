@@ -1,0 +1,204 @@
+<!-- Odoo Apps description page for stock_card_report_advanced (Odoo 16.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
+<section style="max-width:1120px;margin:0 auto;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#2b2b33;">
+
+<!-- ============================== HERO ============================== -->
+<div style="background:linear-gradient(120deg,#017E84 0%,#3d6b78 45%,#714B67 100%);border-radius:18px;padding:48px 40px 40px;color:#ffffff;margin-top:12px;">
+  <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85;margin-bottom:10px;">Inventory &middot; Reporting &middot; Valuation</div>
+  <h1 style="font-size:40px;line-height:1.15;font-weight:700;margin:0 0 14px;color:#ffffff;">Advanced Stock Card Report</h1>
+  <p style="font-size:19px;line-height:1.55;max-width:760px;margin:0 0 24px;color:#ffffff;opacity:.95;">A real stock card for every product: opening balance, every receipt and delivery with its move type and bill or invoice number, running balance and stock value. One SQL engine feeds an interactive web page, a clean PDF and an Excel workbook, in English and Arabic.</p>
+  <div>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 16.0</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Community &amp; Enterprise</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Depends on Inventory only</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">51 automated tests</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Technical name: stock_card_report_advanced</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">LGPL-3</span>
+  </div>
+</div>
+
+<!-- ============================== KEY NUMBERS ============================== -->
+<div style="display:flex;flex-wrap:wrap;margin:28px -8px 8px;">
+  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">3 outputs</div><div style="font-size:15px;color:#555;">Web page, PDF and Excel from the same numbers</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">2 report types</div><div style="font-size:15px;color:#555;">Detailed Moves, or Totals per day, week, month or full period</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#f6f4f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#714B67;">17 move types</div><div style="font-size:15px;color:#555;">Purchase, sale, returns, scrap, adjustments, manufacturing, PoS&hellip;</div></div>
+  <div style="flex:1 1 220px;margin:8px;background:#eef6f6;border-radius:14px;padding:20px 22px;"><div style="font-size:30px;font-weight:700;color:#017E84;">1 SQL query</div><div style="font-size:15px;color:#555;">Per report call, whatever the number of moves</div></div>
+</div>
+
+<!-- ============================== WHY ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Why this module</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Auditors, storekeepers and accountants all ask the same question: how did this product get from its opening quantity to today&rsquo;s balance, and what is it worth?</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -10px;">
+  <div style="flex:1 1 440px;margin:10px;border:1px solid #f1d6d6;background:#fff8f8;border-radius:14px;padding:24px 26px;">
+    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 16</h3>
+    <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
+      <li><b>Moves History</b> lists done move lines, but has <b>no opening balance and no running balance</b>.</li>
+      <li>Quantities are shown in the <b>unit of the move line</b>, so dozens and units are mixed in one list.</li>
+      <li>Nothing tells you at a glance whether a line is a <b>purchase, a return, a scrap or an adjustment</b>.</li>
+      <li>The <b>vendor bill or customer invoice</b> behind a receipt or delivery is not on the line.</li>
+      <li>Vendor, customer and adjustment <b>virtual locations</b> clutter the source / destination columns.</li>
+      <li>There is <b>no printable stock card</b> and no per-day or per-period totals with stock value.</li>
+    </ul>
+  </div>
+  <div style="flex:1 1 440px;margin:10px;border:1px solid #cfe7e7;background:#f4fbfb;border-radius:14px;padding:24px 26px;">
+    <h3 style="font-size:19px;font-weight:700;color:#017E84;margin:0 0 12px;">With this module</h3>
+    <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
+      <li>Every card starts with the <b>Opening Balance</b> and carries a <b>Running Balance</b> on each line.</li>
+      <li>Quantities are converted to the <b>product&rsquo;s unit of measure</b>, rounded exactly as Odoo does.</li>
+      <li>A <b>Move Type</b> column: Purchase Order, Sale Order, returns, Scrap, Inventory Adjustment Increase / Decrease&hellip;</li>
+      <li>Posted <b>bill / invoice / credit note numbers</b> beside the PO or SO origin, clickable in the web view.</li>
+      <li>Virtual locations are <b>left blank</b>; only your real warehouse locations are shown.</li>
+      <li><b>PDF and Excel</b> stock cards, plus <b>Totals per Period</b> with <b>Balance Value</b> in all three outputs.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">How it works</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Four steps, no configuration.</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -8px;">
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">1</div><div style="font-weight:700;margin-bottom:4px;">Open</div><div style="font-size:14px;color:#555;"><b>Inventory &rsaquo; Reporting &rsaquo; Stock Card</b> opens the report wizard.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">2</div><div style="font-weight:700;margin-bottom:4px;">Choose</div><div style="font-size:14px;color:#555;">Report type, period, company, warehouse or locations, products or categories.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #e3dde2;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#714B67;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">3</div><div style="font-weight:700;margin-bottom:4px;">Compute</div><div style="font-size:14px;color:#555;">One PostgreSQL statement builds opening, in, out and running balance in your timezone.</div></div>
+  <div style="flex:1 1 200px;margin:8px;border-radius:12px;border:1px solid #cfe7e7;background:#f4fbfb;padding:18px;"><div style="width:34px;height:34px;border-radius:50%;background:#017E84;color:#fff;font-weight:700;text-align:center;line-height:34px;margin-bottom:10px;">4</div><div style="font-weight:700;margin-bottom:4px;">Use</div><div style="font-size:14px;color:#555;"><b>View Report</b>, <b>Print PDF</b> or <b>Export XLSX</b>; the web page has PDF / XLSX buttons too.</div></div>
+</div>
+
+<!-- ============================== FEATURES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Features</h2>
+<p style="font-size:16px;color:#555;margin:0 0 4px;">Screenshots use one demo dataset: <b>My Company (San Francisco)</b>, warehouse <b>YourCompany</b>, October 1&ndash;27, 2026, timezone Asia/Riyadh, three office-furniture products with purchases, sales, returns, an internal transfer, scraps and inventory counts. Every output shows the same totals (stock value $&nbsp;3,736.25).</p>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Menus</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Right where you look for stock reports</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;"><b>Inventory &rsaquo; Reporting &rsaquo; Stock Card</b>, next to Odoo&rsquo;s own <b>Stock</b> report. One menu entry opens the wizard; everything else (web page, PDF, Excel) starts from there.</p>
+  <img src="scr_01_menu.png" alt="Inventory Reporting menu with the Stock Card entry" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 1</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">One wizard for every stock card question</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;"><b>Report Type</b>: <b>Detailed Moves</b> or <b>Totals per Period</b>, with <b>Totals Interval</b> <b>Daily</b>, <b>Weekly</b>, <b>Monthly</b> or <b>Full Period</b>. <b>Date From</b> / <b>Date To</b> are read in your timezone. Scope by <b>Company</b>, <b>Warehouse</b> or several <b>Locations</b> (with <b>Include Sub-locations</b>), optionally <b>Split by Location</b>. Filter <b>Product Categories</b> (sub-categories included) and <b>Products</b>, keep <b>Storable Products Only</b>, and switch <b>Show Valuation</b> on or off.</p>
+  <img src="scr_02_wizard.png" alt="Stock Card wizard with report type, totals interval, period, scope and product filters" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 2</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Interactive stock card with move types and invoice numbers</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">One collapsible card per product with its unit of measure, <b>Opening</b>, <b>Movements</b> and <b>Unit Cost</b>; the lines of a card load only when you open it. Columns: <b>Date</b>, <b>Reference / Origin</b>, <b>Move Type</b>, <b>Source Location</b>, <b>Destination Location</b>, <b>In Quantity</b>, <b>Out Quantity</b>, <b>Running Balance</b>, <b>Balance Value</b>. Under a PO or SO origin you see the posted bill or invoice (<b>P00006 &middot; BILL/2026/10/0006</b>), and one click opens it. Click a reference to open the transfer or move, the product name to open the product. Quick search, <b>Expand all</b> / <b>Collapse all</b>, and chips that recall the filters and the total <b>Stock Value</b>.</p>
+  <img src="scr_03_web_detail.png" alt="Web stock card with move types, bill and invoice numbers, running balance and balance value" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 3</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Totals per day, week, month or full period</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;"><b>Totals per Period</b> drops the individual moves: one line per bucket with <b>Date</b> (or <b>Period</b>), <b>In Quantity</b>, <b>Out Quantity</b>, <b>Running Balance</b> and <b>Balance Value</b>, between the opening and closing rows. Weeks start on the first weekday of your language; partial first and last periods are labelled with the dates they really cover. <b>Full Period</b> gives exactly one line per product for the whole range, including products that have stock but did not move.</p>
+  <img src="scr_04_web_daily.png" alt="Daily totals in the web report" style="width:100%;margin-bottom:22px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="scr_05_web_full_period.png" alt="Full period totals in the web report, one line per product" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <div style="font-size:13px;color:#777;margin:6px 0 0;">Daily Totals (top) and Full Period Totals (bottom) for the same products and dates.</div>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 4</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">A PDF stock card you can hand to an auditor</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">A4 landscape with its own fixed header (logo, company address and Tax ID, title, period) that never overlaps the table, filter tiles with <b>Stock Cards</b>, <b>Movements</b> and <b>Stock Value</b> (with <b>Opening Value</b>), and per product a strip with <b>Opening Balance</b>, <b>Total In</b>, <b>Total Out</b>, <b>Closing Balance</b>, <b>Unit Cost</b> and <b>Movements</b>. The card title and column headings repeat on every page; the footer shows <b>Page x / y</b>. Colours follow the company&rsquo;s <b>Document Layout</b> primary colour.</p>
+  <img src="scr_06_pdf_detail.png" alt="PDF stock card, detailed moves" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 5</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Totals reports in PDF too</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The report type you pick in the wizard drives all three outputs. Daily, weekly or monthly totals print as a compact five-column card; <b>Full Period Totals</b> fit a whole product range on one page.</p>
+  <img src="scr_07_pdf_totals.png" alt="PDF daily totals" style="width:100%;margin-bottom:22px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="scr_08_pdf_full_period.png" alt="PDF full period totals, one line per product" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 6</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Arabic, right to left</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Arabic translation of every term (wizard, menu, web page, PDF, Excel, messages). For right-to-left languages the PDF is mirrored, dates use Arabic month names, amounts and references stay left-to-right inside Arabic text, and the Excel sheets open right to left. Activate Arabic in <b>Settings &rsaquo; Translations &rsaquo; Languages</b> and set it on the user.</p>
+  <img src="scr_09_pdf_arabic.png" alt="Arabic right-to-left PDF stock card" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 7</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Excel with Partner and Notes, and live formulas</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The <b>Stock Card</b> sheet has the same columns as the report, plus two Excel-only columns in <b>Detailed Moves</b>: <b>Partner</b> (PO vendor, SO customer, transfer <b>Responsible</b>, the user who applied an inventory count, the scrap creator) and <b>Notes</b> (the transfer&rsquo;s note as plain text). Totals rows are real <b>SUM</b> formulas. The <b>Summary</b> sheet lists every card with opening, in, out, closing, moves, unit cost, opening and closing value, and a <b>Total Stock Value</b> row.</p>
+  <img src="scr_10_xlsx_detail.png" alt="Excel stock card sheet with Partner and Notes columns" style="width:100%;margin-bottom:22px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="scr_11_xlsx_summary.png" alt="Excel summary sheet with opening and closing stock value" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<div style="margin:44px 0 0;">
+  <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 8</div>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Totals workbook, ready for pivots</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">With <b>Totals per Period</b> the workbook holds one row per product and bucket: real dates in the <b>Date</b> column, numbers stored as numbers, the filters in the sheet header. Built in streaming mode, so large exports do not load the server&rsquo;s memory.</p>
+  <img src="scr_12_xlsx_totals.png" alt="Excel daily totals workbook" style="width:100%;max-width:800px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+</div>
+
+<!-- ============================== MOVE TYPES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:48px 0 6px;color:#2b2b33;">Move types and partners</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Each line gets one move type, decided in the same SQL statement; the first matching rule wins. The Excel <b>Partner</b> column follows the move type.</p>
+<div style="font-size:15px;line-height:1.6;">
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#d1fae5;color:#047857;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Purchase Order / Receipt</span> receipt from a vendor; partner = PO vendor; bills beside the PO number</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#dbeafe;color:#1d4ed8;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Sale Order / Delivery / PoS</span> delivery to a customer; partner = SO customer; invoices beside the SO number</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#fef3c7;color:#b45309;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Purchase / Sales Return</span> goods back to the vendor or from the customer; credit notes beside the order number</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#fee2e2;color:#b91c1c;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Scrap</span> scrap order; partner = the user who created it</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#ede9fe;color:#6d28d9;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Inventory Adjustment Increase / Decrease</span> applied count that adds or removes stock; partner = the user who applied it</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#eef6f6;color:#017E84;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Manufacturing / Unbuild</span> finished product, component consumption, unbuild (when Manufacturing is installed)</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:230px;text-align:center;background:#f6f4f6;color:#714B67;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">Internal / Inter-Warehouse Transfer</span> moves between your own locations or through transit; partner = transfer <b>Responsible</b></div>
+</div>
+<div style="background:#f4fbfb;border-left:4px solid #017E84;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.6;margin-top:18px;"><b>Rule:</b> Running Balance = Opening Balance + &sum;(In &minus; Out), in the order the moves were done; Balance Value = Running Balance &times; Unit Cost (the product&rsquo;s <b>Cost</b> in the report company, rounded to the company currency).<br/><b>Example:</b> Office Lamp opens October with 12 units, receives 69 and ships 57: 12 + 69 &minus; 57 = <b>24 units</b>, &times; $&nbsp;42.50 = <b>$&nbsp;1,020.00</b>. The PDF, the web page and both Excel sheets show the same figure.</div>
+
+<!-- ============================== CORNER CASES ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Built for real-world corner cases</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Situations that make simpler stock reports disagree with Odoo&rsquo;s own quantities.</p>
+<div style="display:flex;flex-wrap:wrap;margin:0 -8px;font-size:15px;line-height:1.55;">
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Several units of measure</b><br/><span style="color:#555;">A receipt in dozens and a delivery in units land on one card in the product&rsquo;s unit, rounded like Odoo (grams to kilograms too).</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Timezones</b><br/><span style="color:#555;">Period boundaries are your local midnights; a move at 23:30 in Riyadh or New York falls on the right day, week and month.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Transfers inside the scope</b><br/><span style="color:#555;">A move between two selected locations nets to zero on the product card, or shows as out and in with <b>Split by Location</b>.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Draft, cancelled and multiple bills</b><br/><span style="color:#555;">Only posted documents of the move&rsquo;s own order line are shown, in the move&rsquo;s direction; several are listed side by side.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Apps not installed</b><br/><span style="color:#555;">Purchase, Sales, Manufacturing and PoS rules are used only when those apps exist; the module depends on Inventory alone.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Multi-company cost</b><br/><span style="color:#555;">The unit cost is read in the report company, so each company values its own stock; users only see their allowed companies.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Virtual locations</b><br/><span style="color:#555;">Vendors, customers, inventory adjustment, production and scrap locations and inter-company transit are blank; company transit stays visible.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Large databases</b><br/><span style="color:#555;">Same number of queries for 30 or 6,000 move lines, a partial index on done move lines, lazy card loading and streamed Excel files.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Unsafe text in Excel</b><br/><span style="color:#555;">References or notes starting with <b>=</b>, <b>+</b> or <b>@</b> are written as text, never as formulas.</span></div>
+</div>
+
+<!-- ============================== SECURITY ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Security</h2>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">The report reads stock data only; it never writes to stock records.</p>
+<table style="width:100%;border-collapse:collapse;font-size:15px;">
+  <thead><tr style="background:#714B67;color:#fff;"><th style="text-align:left;padding:10px 14px;">Who</th><th style="text-align:left;padding:10px 14px;">Sees</th></tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;">Inventory / Administrator</td><td style="padding:10px 14px;">The <b>Inventory &rsaquo; Reporting &rsaquo; Stock Card</b> menu (Odoo 16 shows the Reporting menu to Inventory administrators) and all outputs.</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;">Inventory / User</td><td style="padding:10px 14px;">The wizard, web page, PDF and Excel export (wizard access, Excel download route and RPC are granted to this group).</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;">Users without Inventory access</td><td style="padding:10px 14px;">Nothing: read rights on stock move lines are checked before every query, and the Excel route refuses the download.</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;">Multi-company</td><td style="padding:10px 14px;">Only companies in the user&rsquo;s allowed companies; the warehouse must belong to the selected company.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== TECHNICAL DETAILS ============================== -->
+<h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Technical details</h2>
+<table style="width:100%;border-collapse:collapse;font-size:15px;">
+  <tbody>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:28%;color:#777;">Odoo version</td><td style="padding:10px 14px;word-break:break-word;">16.0, Community and Enterprise (module version 16.0.1.6.0)</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:28%;color:#777;">Depends on</td><td style="padding:10px 14px;word-break:break-word;"><code>stock</code> (Purchase, Sales, Manufacturing and Point of Sale links are used automatically when installed)</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:28%;color:#777;">Python dependency</td><td style="padding:10px 14px;word-break:break-word;"><code>xlsxwriter</code> (shipped with Odoo&rsquo;s requirements)</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:28%;color:#777;">Menus</td><td style="padding:10px 14px;word-break:break-word;">Inventory &rsaquo; Reporting &rsaquo; Stock Card</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:28%;color:#777;">Settings</td><td style="padding:10px 14px;word-break:break-word;">None. Week start comes from <b>Settings &rsaquo; Translations &rsaquo; Languages</b>; the PDF colour from the company&rsquo;s <b>Document Layout</b>.</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:28%;color:#777;">Models</td><td style="padding:10px 14px;word-break:break-word;"><code>stock.card.wizard</code> (wizard), <code>stock.card.report.engine</code> (SQL engine), <code>stock.card.report.xlsx</code> (Excel), <code>report.stock_card_report_advanced.report_stock_card</code> (PDF); OWL client action for the web page; route <code>/stock_card_report_advanced/xlsx</code></td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:28%;color:#777;">Engine</td><td style="padding:10px 14px;word-break:break-word;">One PostgreSQL statement per call (CTEs, <code>SUM() OVER</code> window, <code>LATERAL</code> invoice lookup), all values passed as parameters, ORM flushed before reading</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:28%;color:#777;">Automated tests</td><td style="padding:10px 14px;word-break:break-word;">51 (50 in the standard run + 1 opt-in concurrency stress test): Opening + In &minus; Out = Ending against Odoo&rsquo;s own quantities, timezones, multi-UoM, filters, access rights, move types, invoices on real PO / SO flows, totals intervals, valuation, Partner / Notes, Arabic, PDF geometry, Excel safety, constant query count on 6,000 lines</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:28%;color:#777;">Translations</td><td style="padding:10px 14px;word-break:break-word;">Arabic (<code>ar</code>, used by every Arabic locale), plus a <code>.pot</code> template</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:28%;color:#777;">License</td><td style="padding:10px 14px;word-break:break-word;">LGPL-3</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== CONTACT ============================== -->
+<div style="margin:52px 0 40px;background:linear-gradient(120deg,#714B67 0%,#017E84 100%);border-radius:18px;padding:36px 40px;color:#fff;">
+  <h2 style="font-size:26px;font-weight:700;margin:0 0 8px;color:#fff;">Support &amp; customization</h2>
+  <p style="font-size:16px;line-height:1.6;margin:0 0 20px;color:#fff;opacity:.95;">Questions, a demo, or an adaptation to your own process? Get in touch.</p>
+  <a href="mailto:ibrahim.yahiah@gmail.com" style="display:inline-block;background:#fff;color:#714B67;font-weight:700;text-decoration:none;border-radius:8px;padding:12px 22px;margin:0 12px 10px 0;">&#9993;&nbsp; ibrahim.yahiah@gmail.com</a>
+  <a href="https://www.linkedin.com/in/ibrahim-yahia" target="_blank" rel="noopener" style="display:inline-block;border:2px solid #fff;color:#fff;font-weight:700;text-decoration:none;border-radius:8px;padding:10px 22px;margin:0 0 10px 0;">LinkedIn: Ibrahim Yahia</a>
+  <p style="font-size:13px;margin:14px 0 0;opacity:.8;color:#fff;">Author: Ibrahim Yahia &middot; License: LGPL-3</p>
+</div>
+
+</section>
