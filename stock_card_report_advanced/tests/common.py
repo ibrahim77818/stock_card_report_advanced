@@ -64,7 +64,8 @@ class StockCardCommon(TransactionCase):
             "company_id": (company or self.company).id,
         })
         move._action_confirm()
-        move.quantity_done = qty
+        # Odoo 17: the done quantity is `quantity` and must be flagged `picked`
+        move.write({"quantity": qty, "picked": True})
         move._action_done()
         self.assertEqual(move.state, "done")
         if isinstance(date, str):

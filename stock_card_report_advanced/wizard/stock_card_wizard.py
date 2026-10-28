@@ -138,8 +138,10 @@ class StockCardWizard(models.TransientModel):
 
     def action_print_pdf(self):
         self.ensure_one()
+        # config=False: the report has its own header / footer and does not use
+        # the company's document layout, so never open the layout configurator.
         return self.env.ref("stock_card_report_advanced.action_report_stock_card").report_action(
-            self, data={"options": self._get_options()}
+            self, data={"options": self._get_options()}, config=False
         )
 
     def action_export_xlsx(self):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Advanced Stock Card Report",
-    "version": "16.0.1.6.0",
+    "version": "17.0.1.6.0",
     "category": "Inventory/Inventory",
     "summary": "Stock card (product ledger) with opening balance, in/out and running "
                "balance - interactive HTML, QWeb PDF and XLSX, computed in pure SQL.",

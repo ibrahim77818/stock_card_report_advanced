@@ -53,18 +53,12 @@ base AS NOT MATERIALIZED (
            sml.location_dest_id       AS dst_id,
            (s_src.id IS NOT NULL)     AS src_in,
            (s_dst.id IS NOT NULL)     AS dst_in,
-           CASE
-               WHEN sml.product_uom_id = pt.uom_id THEN sml.qty_done::numeric
-               ELSE ROUND(
-                        (sml.qty_done::numeric / lu.factor::numeric * pu.factor::numeric)
-                        / pu.rounding::numeric
-                    ) * pu.rounding::numeric
-           END                        AS qty
+           -- Odoo 17 stores the done quantity converted to the product UoM
+           -- (stock.move.line.quantity_product_uom, HALF-UP to the UoM rounding)
+           sml.quantity_product_uom::numeric AS qty
       FROM stock_move_line sml
       JOIN product_product  pp ON pp.id = sml.product_id
       JOIN product_template pt ON pt.id = pp.product_tmpl_id
-      JOIN uom_uom          lu ON lu.id = sml.product_uom_id
-      JOIN uom_uom          pu ON pu.id = pt.uom_id
       LEFT JOIN scope    s_src ON s_src.id = sml.location_id
       LEFT JOIN scope    s_dst ON s_dst.id = sml.location_dest_id
       {categ_join}
@@ -609,15 +603,18 @@ class StockCardReportEngine(models.AbstractModel):
         """Partner / Notes sources, joined only for the detailed XLSX.
 
         Every candidate is fetched; _partner_for() picks the one matching the
-        move type. All joins are on primary keys (or the scrap's move_id),
+        move type. All joins are on primary keys (the scrap via stock.move.scrap_id),
         so they cost one hash/merge join each, not one query per line."""
+        # users (responsible, adjustment user, scrap creator) by their own name:
+        # a user's contact is usually a child of the company ("YourCompany, Marc
+        # Demo"); order partners keep their full name ("Azure Interior, Brandon")
         cols = [
             "spx.note                                    AS picking_note",
             "spx.id                                      AS picking_ref_id",
-            "COALESCE(pup.display_name, pup.name)        AS picking_user",
-            "COALESCE(spp.display_name, spp.name)        AS picking_partner",
-            "COALESCE(mup.display_name, mup.name)        AS move_user",
-            "COALESCE(scp.display_name, scp.name)        AS scrap_user",
+            "pup.name                                    AS picking_user",
+            "COALESCE(spp.complete_name, spp.name)       AS picking_partner",
+            "mup.name                                    AS move_user",
+            "scp.name                                    AS scrap_user",
         ]
         joins = [
             "LEFT JOIN stock_picking spx ON spx.id = p.picking_id",
@@ -626,19 +623,19 @@ class StockCardReportEngine(models.AbstractModel):
             "LEFT JOIN res_partner   spp ON spp.id = spx.partner_id",
             "LEFT JOIN res_users     mu  ON mu.id = sm.create_uid",
             "LEFT JOIN res_partner   mup ON mup.id = mu.partner_id",
-            "LEFT JOIN stock_scrap   scr ON scr.move_id = sm.id",
+            "LEFT JOIN stock_scrap   scr ON scr.id = sm.scrap_id",
             "LEFT JOIN res_users     scu ON scu.id = scr.create_uid",
             "LEFT JOIN res_partner   scp ON scp.id = scu.partner_id",
         ]
         if "purchase_line_id" in available and "purchase.order.line" in self.env:
-            cols.append("COALESCE(pop.display_name, pop.name)    AS po_partner")
+            cols.append("COALESCE(pop.complete_name, pop.name)       AS po_partner")
             joins += ["LEFT JOIN purchase_order_line pol ON pol.id = sm.purchase_line_id",
                       "LEFT JOIN purchase_order      po  ON po.id = pol.order_id",
                       "LEFT JOIN res_partner         pop ON pop.id = po.partner_id"]
         else:
             cols.append("NULL::varchar AS po_partner")
         if "sale_line_id" in available and "sale.order.line" in self.env:
-            cols.append("COALESCE(sop.display_name, sop.name)    AS so_partner")
+            cols.append("COALESCE(sop.complete_name, sop.name)       AS so_partner")
             joins += ["LEFT JOIN sale_order_line sol ON sol.id = sm.sale_line_id",
                       "LEFT JOIN sale_order      so  ON so.id = sol.order_id",
                       "LEFT JOIN res_partner     sop ON sop.id = so.partner_id"]
@@ -812,7 +809,8 @@ class StockCardReportEngine(models.AbstractModel):
                 "date_local": date_local,
                 "date_display": self._format_local_datetime(date_local, date_cache),
                 "reference": row["reference"] or "",
-                "origin": row["origin"] or "",
+                # scraps (and some other moves) carry their own name as origin
+                "origin": "" if row["origin"] == row["reference"] else (row["origin"] or ""),
                 "move_type": move_type,
                 "move_type_label": labels.get(move_type, labels["other"]),
                 "invoice_refs": row.get("invoice_refs") or "",

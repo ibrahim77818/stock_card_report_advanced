@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 06:45+0000\n"
 "PO-Revision-Date: 2026-10-27 06:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 
 #. module: stock_card_report_advanced
@@ -33,6 +33,11 @@ msgid "'Date From' must be earlier than or equal to 'Date To'."
 msgstr "يجب أن يكون 'من تاريخ' قبل 'إلى تاريخ' أو مساوياً له."
 
 #. module: stock_card_report_advanced
+#: model:ir.actions.report,print_report_name:stock_card_report_advanced.action_report_stock_card
+msgid "'Stock Card - %s - %s' % (object.date_from, object.date_to)"
+msgstr "'بطاقة الصنف - %s - %s' % (object.date_from, object.date_to)"
+
+#. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
 #, python-format
@@ -41,7 +46,9 @@ msgstr "(شاملة المواقع الفرعية)"
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__show_valuation
-msgid "Adds the unit cost and the value of every balance (balance x product cost in the company currency)."
+msgid ""
+"Adds the unit cost and the value of every balance (balance x product cost in"
+" the company currency)."
 msgstr "يضيف تكلفة الوحدة وقيمة كل رصيد (الرصيد × تكلفة المنتج بعملة الشركة)."
 
 #. module: stock_card_report_advanced
@@ -95,6 +102,7 @@ msgstr "المواقع المسموح بها"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
@@ -198,6 +206,7 @@ msgstr "إجماليات يومية"
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
+#: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
 msgid "Date"
@@ -248,9 +257,6 @@ msgstr ""
 "الإجماليات حسب الفترة: سطر لكل يوم أو أسبوع أو شهر يتضمن الكميات الواردة والصادرة والرصيد المتراكم وقيمته - دون الحركات الفردية."
 
 #. module: stock_card_report_advanced
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_report_stock_card_report_advanced_report_stock_card__display_name
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_engine__display_name
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_xlsx__display_name
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__display_name
 msgid "Display Name"
 msgstr "اسم العرض"
@@ -315,9 +321,6 @@ msgid "Generated on"
 msgstr "تم الإنشاء في"
 
 #. module: stock_card_report_advanced
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_report_stock_card_report_advanced_report_stock_card__id
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_engine__id
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_xlsx__id
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__id
 msgid "ID"
 msgstr "المُعرف"
@@ -326,6 +329,8 @@ msgstr "المُعرف"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
@@ -413,14 +418,6 @@ msgid "Inventory Report"
 msgstr "تقرير المخزون"
 
 #. module: stock_card_report_advanced
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_report_stock_card_report_advanced_report_stock_card____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_engine____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_xlsx____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard____last_update
-msgid "Last Modified on"
-msgstr "آخر تعديل في"
-
-#. module: stock_card_report_advanced
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__write_uid
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
@@ -432,8 +429,12 @@ msgstr "آخر تحديث في"
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__location_ids
-msgid "Leave empty to report on every internal location of the warehouse (or of the company when no warehouse is selected)."
-msgstr "اتركه فارغاً لعرض جميع المواقع الداخلية للمستودع (أو للشركة في حال عدم تحديد مستودع)."
+msgid ""
+"Leave empty to report on every internal location of the warehouse (or of the"
+" company when no warehouse is selected)."
+msgstr ""
+"اتركه فارغاً لعرض جميع المواقع الداخلية للمستودع (أو للشركة في حال عدم تحديد"
+" مستودع)."
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
@@ -522,8 +523,11 @@ msgstr "الحركات"
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/js/stock_card_report.js:0
 #, python-format
-msgid "No report filters found. Open the Stock Card filters to run the report."
-msgstr "لم يتم العثور على عوامل تصفية للتقرير. افتح عوامل تصفية بطاقة الصنف لتشغيل التقرير."
+msgid ""
+"No report filters found. Open the Stock Card filters to run the report."
+msgstr ""
+"لم يتم العثور على عوامل تصفية للتقرير. افتح عوامل تصفية بطاقة الصنف لتشغيل "
+"التقرير."
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
@@ -549,12 +553,17 @@ msgstr "بطاقة لكل منتج وموقع"
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__group_by_location
-msgid "One stock card per product AND location. Internal transfers between reported locations then appear as an out on one card and an in on the other."
-msgstr "بطاقة صنف لكل منتج وموقع. تظهر التحويلات الداخلية بين المواقع المشمولة في التقرير كحركة صادرة في بطاقة وحركة واردة في الأخرى."
+msgid ""
+"One stock card per product AND location. Internal transfers between reported"
+" locations then appear as an out on one card and an in on the other."
+msgstr ""
+"بطاقة صنف لكل منتج وموقع. تظهر التحويلات الداخلية بين المواقع المشمولة في "
+"التقرير كحركة صادرة في بطاقة وحركة واردة في الأخرى."
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #. odoo-python
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
@@ -588,6 +597,8 @@ msgstr "أخرى"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
@@ -616,6 +627,7 @@ msgstr "الشريك"
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #. odoo-python
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
@@ -715,6 +727,7 @@ msgstr "مرتجع"
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
+#: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
 msgid "Running Balance"
@@ -769,6 +782,7 @@ msgstr "تقسيم حسب الموقع"
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #. odoo-python
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: code:addons/stock_card_report_advanced/wizard/stock_card_wizard.py:0
@@ -892,6 +906,7 @@ msgstr "إجمالي قيمة المخزون"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
@@ -918,6 +933,7 @@ msgstr "التفكيك"
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #, python-format
 msgid "Unit Cost"
@@ -932,6 +948,7 @@ msgstr "تكلفة الوحدة:"
 
 #. module: stock_card_report_advanced
 #. odoo-python
+#: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #, python-format
 msgid "UoM"

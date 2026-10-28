@@ -2,7 +2,7 @@
 Advanced Stock Card Report
 ==========================
 
-Odoo 16 (Community & Enterprise) stock card / product ledger with three outputs
+Odoo 17 (Community & Enterprise) stock card / product ledger with three outputs
 built from the same SQL engine:
 
 * **HTML** - interactive OWL client action: one collapsible card per product
@@ -111,9 +111,9 @@ How the numbers are computed
 ``stock.card.report.engine`` runs **one SQL statement per call**:
 
 1. ``scope`` - internal locations selected by warehouse / locations / children.
-2. ``base`` - done ``stock.move.line`` rows touching the scope, quantity
-   converted to the product UoM in SQL (``qty / line_factor * product_factor``,
-   rounded HALF-UP to the product UoM rounding, as Odoo does).
+2. ``base`` - done ``stock.move.line`` rows touching the scope, with Odoo
+   17's stored ``quantity_product_uom`` (the done ``quantity`` converted to the
+   product UoM, rounded HALF-UP to its rounding by Odoo itself).
 3. ``legs`` - each line becomes an IN leg (destination in scope) and/or an OUT
    leg (source in scope). Transfers between two scoped locations net to zero
    unless the report is split by location.
@@ -150,7 +150,7 @@ right-to-left. QtWebKit-specific choices: no letter-spacing/uppercase on RTL
 labels (it breaks Arabic letter joining), no shrink-to-fit boxes around Arabic
 text and no ``opacity`` on text (rasterised in PDFs).
 
-The terms were extracted with Odoo 16's own extractors, so ``ar.po`` matches
+The terms were extracted with Odoo 17's own exporter, so ``ar.po`` matches
 what ``Settings > Translations > Export`` produces; after changing a label,
 re-export the ``.pot`` and update ``ar.po``. Updating the module (``-u``)
 reloads the translations.
@@ -183,3 +183,38 @@ Tests
   results (``STOCK_CARD_STRESS_WORKERS``, ``STOCK_CARD_STRESS_ROUNDS``)::
 
     odoo-bin -d <db> --test-tags stock_card_stress --stop-after-init
+
+Odoo 17 port (17.0.1.6.0)
+=========================
+Same features as 16.0.1.6.0. What changed for Odoo 17:
+
+* SQL engine: the done quantity of a move line is ``stock_move_line.quantity``
+  (``qty_done`` was removed); the engine now reads the stored
+  ``quantity_product_uom`` (already converted to the product UoM by Odoo), so
+  the UoM joins are gone.
+* Scrap creator: ``stock.scrap`` no longer has ``move_id``; the scrap is
+  reached through ``stock.move.scrap_id``.
+* Partner names: ``res.partner.display_name`` is no longer stored in 17;
+  order partners use ``complete_name``. Users (transfer responsible,
+  adjustment user, scrap creator) are shown by their own name, without the
+  parent company ("Marc Demo", not "YourCompany, Marc Demo").
+* Views: ``attrs`` replaced by the Odoo 17 ``invisible="report_mode !=
+  'summary'"`` expression.
+* Web client: OWL component with ``static template`` / ``static props``,
+  ``_t`` instead of the deprecated ``_lt``, no ``owl="1"`` on the template.
+* PDF from the wizard: ``report_action(..., config=False)``; the report has its
+  own header and footer, so Odoo 17 must not open the document-layout
+  configurator on databases where no layout was chosen yet.
+* An origin equal to the reference (scraps) is no longer repeated under it.
+* Tests: ``move.quantity`` + ``picked`` instead of ``quantity_done``,
+  ``registry.clear_cache()``, Odoo 17's ``SQL`` query objects in the
+  read-only check.
+* ``i18n``: ``.pot`` exported by Odoo 17 itself; ``ar.po`` merged from it
+  (adds the translatable PDF file name, drops "Last Modified on").
+
+No data migration is needed from 16.0: the module stores no business data
+(one transient wizard and a database index).
+
+RTL PDFs need ``rtlcss`` on the server (``npm install -g rtlcss``), as for any
+Odoo report; without it Odoo prints Arabic PDFs left to right and logs
+"You need https://rtlcss.com/".

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="stock_card_report_advanced.StockCardReport" owl="1">
+    <t t-name="stock_card_report_advanced.StockCardReport">
         <div class="o_action o_stock_card_report">
             <div class="o_sc_toolbar">
                 <div class="o_sc_heading">
