@@ -14,12 +14,12 @@
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from datetime import datetime
 from unittest.mock import patch
 
 from odoo import SUPERUSER_ID, api
-from odoo.sql_db import Cursor
+from odoo.sql_db import Cursor, db_connect
 from odoo.tests import tagged
 
 from .common import StockCardCommon
@@ -34,7 +34,8 @@ def capture_queries():
     original = Cursor.execute
 
     def spy(cr, query, params=None, log_exceptions=True):
-        queries.append(str(query))
+        # Odoo 17 passes odoo.tools.SQL objects as well as plain strings
+        queries.append(str(getattr(query, "code", query)))
         return original(cr, query, params, log_exceptions)
 
     with patch.object(Cursor, "execute", spy):
@@ -54,16 +55,18 @@ class TestStockCardPerformance(StockCardCommon):
             SELECT column_name FROM information_schema.columns
              WHERE table_schema = current_schema()
                AND table_name = 'stock_move_line'
-               AND column_name NOT IN ('id', 'date', 'location_id', 'location_dest_id', 'qty_done')
+               AND column_name NOT IN ('id', 'date', 'location_id', 'location_dest_id',
+                                       'quantity', 'quantity_product_uom')
         """)
         columns = ['"%s"' % row[0] for row in cr.fetchall()]
         cr.execute("""
-            INSERT INTO stock_move_line ({cols}, date, location_id, location_dest_id, qty_done)
+            INSERT INTO stock_move_line ({cols}, date, location_id, location_dest_id,
+                                         quantity, quantity_product_uom)
             SELECT {tcols},
                    %(start)s + (g * INTERVAL '1 minute'),
                    CASE WHEN g %% 3 = 0 THEN t.location_dest_id ELSE t.location_id END,
                    CASE WHEN g %% 3 = 0 THEN t.location_id ELSE t.location_dest_id END,
-                   1
+                   1, 1
               FROM stock_move_line t, generate_series(1, %(count)s) AS g
              WHERE t.id = %(tid)s
         """.format(cols=", ".join(columns), tcols=", ".join("t." + c for c in columns)),
@@ -170,7 +173,12 @@ class TestStockCardConcurrency(StockCardCommon):
         }
 
         def worker(_round):
-            with registry.cursor() as cr:
+            # a real, independent connection: during tests (Odoo 18) registry.cursor()
+            # hands out TestCursor proxies sharing the test's single connection
+            with closing(db_connect(registry.db_name).cursor()) as cr:
+                # bind the loaded registry: Registry(dbname) would wait on the
+                # registry lock that the test runner holds while tests run
+                cr.transaction = api.Transaction(registry)
                 env = api.Environment(cr, SUPERUSER_ID, {})
                 engine = env["stock.card.report.engine"]
                 summary = engine.get_summary(options)

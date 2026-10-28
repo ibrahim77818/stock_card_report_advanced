@@ -185,7 +185,7 @@ class TestStockCardFilters(StockCardCommon):
         self.assertEqual(lines, [])
 
     def test_03_consumables_only_when_requested(self):
-        consu = self.env["product.product"].create({"name": "SC Tape", "detailed_type": "consu"})
+        consu = self.env["product.product"].create({"name": "SC Tape", "type": "consu", "is_storable": False})
         self._move(consu, self.supplier, self.stock, 3, "2026-01-05 10:00:00")
         self.assertEqual(self.engine.get_summary(self._options(product_ids=[consu.id])), [])
         card = self._single_group(self._options(product_ids=[consu.id], storable_only=False))

@@ -29,6 +29,8 @@ class TestStockCardXlsxPartnerNotes(StockCardCommon):
             "groups_id": [(6, 0, [group_manager.id])],
         })
         cls.vendor = cls.env["res.partner"].create({"name": "SC Vendor"})
+        # a user whose contact belongs to the company, as in most databases
+        cls.picker.partner_id.parent_id = cls.env["res.partner"].create({"name": "SC Company", "is_company": True})
 
     def _today_options(self, **kw):
         today = fields.Date.today()
@@ -50,7 +52,7 @@ class TestStockCardXlsxPartnerNotes(StockCardCommon):
             })],
         })
         picking.action_confirm()
-        picking.move_ids.quantity_done = qty
+        picking.move_ids.write({"quantity": qty, "picked": True})
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         return picking
@@ -79,14 +81,14 @@ class TestStockCardXlsxPartnerNotes(StockCardCommon):
         by_type = {l["move_type"]: l for l in data["groups"][0]["lines"]}
         self.assertEqual(set(by_type), {"receipt", "inventory_in", "inventory_out", "scrap"})
         # transfer -> its responsible; notes -> plain text of the transfer note
-        self.assertEqual(by_type["receipt"]["partner_name"], self.picker.partner_id.display_name)
+        self.assertEqual(by_type["receipt"]["partner_name"], self.picker.name)  # not "SC Company, SC Picker"
         self.assertIn("dock 2", by_type["receipt"]["picking_note"])
         self.assertIn("Fragile", by_type["receipt"]["picking_note"])
         self.assertNotIn("<p>", by_type["receipt"]["picking_note"])
         # adjustments -> user who applied them; scrap -> user who created it
-        self.assertEqual(by_type["inventory_in"]["partner_name"], self.counter.partner_id.display_name)
-        self.assertEqual(by_type["inventory_out"]["partner_name"], self.counter.partner_id.display_name)
-        self.assertEqual(by_type["scrap"]["partner_name"], self.scrapper.partner_id.display_name)
+        self.assertEqual(by_type["inventory_in"]["partner_name"], self.counter.name)
+        self.assertEqual(by_type["inventory_out"]["partner_name"], self.counter.name)
+        self.assertEqual(by_type["scrap"]["partner_name"], self.scrapper.name)
         self.assertEqual(by_type["inventory_in"]["picking_note"], "")
 
         # XLSX: Partner and Notes right after Balance Value
@@ -104,8 +106,8 @@ class TestStockCardXlsxPartnerNotes(StockCardCommon):
         self.assertEqual(names[-3:], [names[-3], "Partner", "Notes"])
         self.assertTrue(names[-3].startswith("Balance Value"))
         flat = [str(c) for r in rows for c in r if c]
-        self.assertIn(self.picker.partner_id.display_name, flat)
-        self.assertIn(self.counter.partner_id.display_name, flat)
+        self.assertIn(self.picker.name, flat)
+        self.assertIn(self.counter.name, flat)
 
     def test_02_not_in_pdf_web_or_totals(self):
         self._receipt(4)

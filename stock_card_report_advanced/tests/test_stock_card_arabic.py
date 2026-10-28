@@ -16,7 +16,7 @@ class TestStockCardArabic(StockCardCommon):
         cls.env["res.lang"]._activate_lang("ar_001")
         cls.env["ir.module.module"]._load_module_terms(
             ["stock_card_report_advanced"], ["ar_001"], overwrite=True)
-        cls.env.registry.clear_caches()  # field labels are ormcached per language
+        cls.env.registry.clear_cache()  # field labels are ormcached per language
         cls.engine_ar = cls.engine.with_context(lang="ar_001")
 
     def setUp(self):
