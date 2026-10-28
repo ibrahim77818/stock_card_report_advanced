@@ -14,8 +14,6 @@ class TestStockCardMoveTypeAndLocations(StockCardCommon):
         product_c = cls.product.with_company(cls.company)
         cls.inventory_loc = product_c.property_stock_inventory
         cls.production_loc = product_c.property_stock_production
-        cls.scrap_loc = cls.env["stock.location"].search(
-            [("scrap_location", "=", True), ("company_id", "in", [cls.company.id, False])], limit=1)
 
     def _types(self, options=None):
         return [(l["reference"], l["move_type"]) for l in self.engine.get_lines(options or self._options())]
@@ -24,7 +22,7 @@ class TestStockCardMoveTypeAndLocations(StockCardCommon):
         receipt = self._move(self.product, self.supplier, self.stock, 50, "2026-01-02 10:00:00")
         self._move(self.product, self.stock, self.customer, 5, "2026-01-03 10:00:00")
         self._move(self.product, self.inventory_loc, self.stock, 3, "2026-01-04 10:00:00")
-        self._move(self.product, self.stock, self.scrap_loc, 1, "2026-01-05 10:00:00")
+        self._scrap(self.product, 1, "2026-01-05 10:00:00")
         self._move(self.product, self.stock, self.inventory_loc, 2, "2026-01-05 12:00:00")
         self._move(self.product, self.stock, self.production_loc, 2, "2026-01-06 10:00:00")
         ret = self._move(self.product, self.stock, self.supplier, 4, "2026-01-07 10:00:00")
@@ -50,7 +48,7 @@ class TestStockCardMoveTypeAndLocations(StockCardCommon):
     def test_03_virtual_locations_hidden(self):
         self._move(self.product, self.supplier, self.stock, 10, "2026-01-02 10:00:00")
         self._move(self.product, self.stock, self.customer, 3, "2026-01-03 10:00:00")
-        self._move(self.product, self.stock, self.scrap_loc, 1, "2026-01-04 10:00:00")
+        scrap_loc = self._scrap(self.product, 1, "2026-01-04 10:00:00").scrap_location_id
         lines = self.engine.get_lines(self._options())
         receipt, delivery, scrap = lines
         self.assertTrue(receipt["src_virtual"])
@@ -64,7 +62,7 @@ class TestStockCardMoveTypeAndLocations(StockCardCommon):
         html, _fmt = self.env["ir.actions.report"]._render_qweb_html(
             "stock_card_report_advanced.report_stock_card", [], data={"options": self._options()})
         html = html.decode() if isinstance(html, bytes) else html
-        for name in (self.supplier.complete_name, self.customer.complete_name, self.scrap_loc.complete_name):
+        for name in (self.supplier.complete_name, self.customer.complete_name, scrap_loc.complete_name):
             self.assertNotIn(name, html)
         self.assertIn(self.stock.complete_name, html)
 

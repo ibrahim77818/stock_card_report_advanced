@@ -2,6 +2,7 @@
 import zipfile
 
 from odoo.tests import tagged
+from odoo.tools.misc import format_date
 
 from .common import StockCardCommon
 
@@ -16,7 +17,7 @@ class TestStockCardArabic(StockCardCommon):
         cls.env["res.lang"]._activate_lang("ar_001")
         cls.env["ir.module.module"]._load_module_terms(
             ["stock_card_report_advanced"], ["ar_001"], overwrite=True)
-        cls.env.registry.clear_caches()  # field labels are ormcached per language
+        cls.env.registry.clear_cache()  # field labels are ormcached per language
         cls.engine_ar = cls.engine.with_context(lang="ar_001")
 
     def setUp(self):
@@ -37,10 +38,17 @@ class TestStockCardArabic(StockCardCommon):
             location_ids=[], warehouse_id=self.warehouse.id))["meta"]
         self.assertEqual(meta_wh["locations_lines"],
                          ["جميع المواقع الداخلية في", self.warehouse.display_name])
-        # babel month names in Arabic: never an English month inside RTL text
+        # dates follow the language's own date format (babel): Odoo 19 ships
+        # Arabic as %d/%m/%Y; never an English month name inside RTL text
         line = data["groups"][0]["lines"][0]
-        self.assertIn("يناير", line["date_display"])
+        expected = format_date(self.engine_ar.env, line["date_local"].date())
+        self.assertTrue(line["date_display"].startswith(expected))
         self.assertNotIn("Jan", line["date_display"])
+        lang = self.env["res.lang"]._lang_get("ar_001")
+        lang.date_format = "%d %B %Y"  # a format with month names gets Arabic ones
+        self.env.registry.clear_cache()
+        line = self.engine_ar.get_report_data(self._options(location_ids=[]))["groups"][0]["lines"][0]
+        self.assertIn("يناير", line["date_display"])
         self.assertEqual(data["groups"][0]["closing"], 25)
 
     def test_02_pdf_is_translated_and_rtl(self):

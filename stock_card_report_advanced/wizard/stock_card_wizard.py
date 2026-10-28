@@ -52,7 +52,7 @@ class StockCardWizard(models.TransientModel):
     product_ids = fields.Many2many(
         "product.product", "stock_card_wizard_product_rel", "wizard_id", "product_id",
         string="Products",
-        domain="[('type', 'in', ('product', 'consu')),"
+        domain="[('type', '=', 'consu'),"
                " '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
     )
     categ_ids = fields.Many2many(
@@ -65,7 +65,10 @@ class StockCardWizard(models.TransientModel):
         help="One stock card per product AND location. Internal transfers between "
              "reported locations then appear as an out on one card and an in on the other.",
     )
-    storable_only = fields.Boolean(string="Storable Products Only", default=True)
+    storable_only = fields.Boolean(
+        string="Storable Products Only", default=True,
+        help="Only products with 'Track Inventory' enabled.",
+    )
     show_valuation = fields.Boolean(
         string="Show Valuation", default=True,
         help="Adds the unit cost and the value of every balance (balance x product cost "
@@ -138,8 +141,10 @@ class StockCardWizard(models.TransientModel):
 
     def action_print_pdf(self):
         self.ensure_one()
+        # config=False: the report has its own header / footer and does not use
+        # the company's document layout, so never open the layout configurator.
         return self.env.ref("stock_card_report_advanced.action_report_stock_card").report_action(
-            self, data={"options": self._get_options()}
+            self, data={"options": self._get_options()}, config=False
         )
 
     def action_export_xlsx(self):

@@ -17,21 +17,29 @@ try:
 except ImportError:  # pragma: no cover - declared in external_dependencies
     xlsxwriter = None
 
-COLUMNS = [
-    # (key, lazy-translated title, width)
-    ("date", _lt("Date"), 17),
-    ("ref", _lt("Reference / Origin"), 28),
-    ("type", _lt("Move Type"), 20),
-    ("src", _lt("Source Location"), 26),
-    ("dst", _lt("Destination Location"), 26),
-    ("in", _lt("In Quantity"), 13),
-    ("out", _lt("Out Quantity"), 13),
-    ("bal", _lt("Running Balance"), 15),
-    ("value", _lt("Balance Value"), 17),
+# Column titles in a dict and widths in plain tuples: Odoo 19's term extractor
+# misreads string literals that share a bracket with a translated call
+# ("ref", _lt(...), 28) and would export "ref", "dst"... as terms.
+COLUMN_TITLES = {
+    "date": _lt("Date"),
+    "ref": _lt("Reference / Origin"),
+    "type": _lt("Move Type"),
+    "src": _lt("Source Location"),
+    "dst": _lt("Destination Location"),
+    "in": _lt("In Quantity"),
+    "out": _lt("Out Quantity"),
+    "bal": _lt("Running Balance"),
+    "value": _lt("Balance Value"),
     # detailed report, XLSX only
-    ("partner", _lt("Partner"), 30),
-    ("notes", _lt("Notes"), 45),
-]
+    "partner": _lt("Partner"),
+    "notes": _lt("Notes"),
+}
+COLUMN_WIDTHS = (
+    ("date", 17), ("ref", 28), ("type", 20), ("src", 26), ("dst", 26), ("in", 13),
+    ("out", 13), ("bal", 15), ("value", 17), ("partner", 30), ("notes", 45),
+)
+# (key, lazy-translated title, width)
+COLUMNS = [(key, COLUMN_TITLES[key], width) for key, width in COLUMN_WIDTHS]
 SUMMARY_KEYS = ("date", "in", "out", "bal", "value")
 
 
@@ -113,9 +121,10 @@ class StockCardReportXlsx(models.AbstractModel):
     @api.model
     def _write_meta(self, sheet, fmt, meta):
         sheet.write_string(0, 0, _("Stock Card"), fmt["title"])
+        period = "%s - %s (%s)" % (meta["date_from_display"], meta["date_to_display"], meta["tz"])
         rows = [
             (_("Company"), meta["company_name"]),
-            (_("Period"), "%s - %s (%s)" % (meta["date_from_display"], meta["date_to_display"], meta["tz"])),
+            (_("Period"), period),
             (_("Locations"), meta["locations_label"]),
             (_("Products"), meta["products_label"]),
             (_("Categories"), meta["categories_label"]),
@@ -123,8 +132,9 @@ class StockCardReportXlsx(models.AbstractModel):
             (_("Generated"), meta["generated_at"]),
         ]
         if meta.get("show_valuation"):
-            rows.append((_("Stock Value"), "%s %s" % (
-                "{:,.{d}f}".format(meta["total_closing_value"], d=meta["currency_digits"]), meta["currency_name"])))
+            stock_value = "%s %s" % (
+                "{:,.{d}f}".format(meta["total_closing_value"], d=meta["currency_digits"]), meta["currency_name"])
+            rows.append((_("Stock Value"), stock_value))
         for idx, (label, value) in enumerate(rows, start=1):
             sheet.write_string(idx, 0, label, fmt["meta_label"])
             sheet.write_string(idx, 1, value or "", fmt["meta"])

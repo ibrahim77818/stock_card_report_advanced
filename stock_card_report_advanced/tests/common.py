@@ -46,16 +46,32 @@ class StockCardCommon(TransactionCase):
         return cls.env["product.product"].create({
             "name": name,
             "default_code": code,
-            "detailed_type": "product",
+            "type": "consu",
+            "is_storable": True,
             "categ_id": categ.id,
             "uom_id": uom.id,
-            "uom_po_id": uom.id,
         })
+
+    def _scrap(self, product, qty, date, location=None):
+        """Validate and back-date a scrap order (Odoo 19 identifies scraps by
+        stock.move.scrap_id, not by a scrap location flag)."""
+        scrap = self.env["stock.scrap"].create({
+            "product_id": product.id,
+            "product_uom_id": product.uom_id.id,
+            "scrap_qty": qty,
+            "location_id": (location or self.stock).id,
+        })
+        scrap.action_validate()
+        self.assertEqual(scrap.state, "done")
+        if isinstance(date, str):
+            date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        scrap.move_ids.write({"date": date})
+        scrap.move_ids.move_line_ids.write({"date": date})
+        return scrap
 
     def _move(self, product, src, dst, qty, date, uom=None, company=None):
         """Create, validate and back-date a stock move (and its move line)."""
         move = self.env["stock.move"].create({
-            "name": "SC test move",
             "product_id": product.id,
             "product_uom_qty": qty,
             "product_uom": (uom or product.uom_id).id,
@@ -64,7 +80,8 @@ class StockCardCommon(TransactionCase):
             "company_id": (company or self.company).id,
         })
         move._action_confirm()
-        move.quantity_done = qty
+        # Odoo 17: the done quantity is `quantity` and must be flagged `picked`
+        move.write({"quantity": qty, "picked": True})
         move._action_done()
         self.assertEqual(move.state, "done")
         if isinstance(date, str):

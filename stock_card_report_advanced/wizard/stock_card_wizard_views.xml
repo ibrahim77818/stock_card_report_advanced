@@ -10,7 +10,7 @@
                     <group string="Report">
                         <field name="report_mode" widget="radio"/>
                         <field name="interval" widget="radio" options="{'horizontal': true}"
-                               attrs="{'invisible': [('report_mode', '!=', 'summary')]}"/>
+                               invisible="report_mode != 'summary'"/>
                     </group>
                 </group>
                 <group>

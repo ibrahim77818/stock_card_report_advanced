@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:45+0000\n"
-"PO-Revision-Date: 2026-10-27 06:45+0000\n"
+"POT-Creation-Date: 2026-10-28 00:32+0000\n"
+"PO-Revision-Date: 2026-10-28 00:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "%(from)s → %(to)s"
 msgstr ""
 
@@ -26,61 +25,60 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
 #: code:addons/stock_card_report_advanced/wizard/stock_card_wizard.py:0
-#, python-format
 msgid "'Date From' must be earlier than or equal to 'Date To'."
+msgstr ""
+
+#. module: stock_card_report_advanced
+#: model:ir.actions.report,print_report_name:stock_card_report_advanced.action_report_stock_card
+msgid "'Stock Card - %s - %s' % (object.date_from, object.date_to)"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "(incl. sub-locations)"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__show_valuation
-msgid "Adds the unit cost and the value of every balance (balance x product cost in the company currency)."
+msgid ""
+"Adds the unit cost and the value of every balance (balance x product cost in"
+" the company currency)."
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "All categories"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "All internal locations"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "All internal locations of"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "All internal locations of %s"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "All products"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "All selected locations"
 msgstr ""
 
@@ -95,14 +93,12 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Balance Value"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Both 'Date From' and 'Date To' are required."
 msgstr ""
 
@@ -114,7 +110,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Categories"
 msgstr ""
 
@@ -122,21 +117,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Closing Balance"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Closing Value"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Collapse all"
 msgstr ""
 
@@ -144,14 +136,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__company_id
-#, python-format
 msgid "Company"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Computing stock card…"
 msgstr ""
 
@@ -168,14 +158,12 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Customer Credit Note"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Customer Invoice"
 msgstr ""
 
@@ -187,7 +175,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Daily Totals"
 msgstr ""
 
@@ -197,7 +184,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Date"
 msgstr ""
 
@@ -214,7 +200,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Delivery"
 msgstr ""
 
@@ -224,7 +209,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Destination Location"
 msgstr ""
 
@@ -232,7 +216,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
 #: model:ir.model.fields.selection,name:stock_card_report_advanced.selection__stock_card_wizard__report_mode__detail
-#, python-format
 msgid "Detailed Moves"
 msgstr ""
 
@@ -254,7 +237,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Expand all"
 msgstr ""
 
@@ -266,14 +248,12 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Filter products or locations…"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Filters"
 msgstr ""
 
@@ -285,7 +265,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Full Period Totals"
 msgstr ""
 
@@ -299,7 +278,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Generated"
 msgstr ""
 
@@ -322,7 +300,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "In Quantity"
 msgstr ""
 
@@ -334,84 +311,66 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Including sub-locations"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Inter-Warehouse Transfer"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Internal Reference"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Internal Transfer"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Invalid Stock Card options."
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Invalid Stock Card options: %s"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Invalid report type: %s"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Invalid totals interval: %s"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Inventory Adjustment Decrease"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Inventory Adjustment Increase"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 msgid "Inventory Report"
-msgstr ""
-
-#. module: stock_card_report_advanced
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_report_stock_card_report_advanced_report_stock_card____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_engine____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_report_xlsx____last_update
-#: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_card_report_advanced
@@ -426,20 +385,20 @@ msgstr ""
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__location_ids
-msgid "Leave empty to report on every internal location of the warehouse (or of the company when no warehouse is selected)."
+msgid ""
+"Leave empty to report on every internal location of the warehouse (or of the"
+" company when no warehouse is selected)."
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Loading moves…"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Location"
 msgstr ""
 
@@ -448,7 +407,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__location_ids
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Locations"
 msgstr ""
 
@@ -460,14 +418,12 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Manufacturing"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Manufacturing Consumption"
 msgstr ""
 
@@ -479,7 +435,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Monthly Totals"
 msgstr ""
 
@@ -489,7 +444,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Move Type"
 msgstr ""
 
@@ -501,22 +455,20 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Movements:"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Moves"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/js/stock_card_report.js:0
-#, python-format
-msgid "No report filters found. Open the Stock Card filters to run the report."
+msgid ""
+"No report filters found. Open the Stock Card filters to run the report."
 msgstr ""
 
 #. module: stock_card_report_advanced
@@ -525,14 +477,12 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "No stock movement matches the selected filters."
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Notes"
 msgstr ""
 
@@ -543,7 +493,14 @@ msgstr ""
 
 #. module: stock_card_report_advanced
 #: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__group_by_location
-msgid "One stock card per product AND location. Internal transfers between reported locations then appear as an out on one card and an in on the other."
+msgid ""
+"One stock card per product AND location. Internal transfers between reported"
+" locations then appear as an out on one card and an in on the other."
+msgstr ""
+
+#. module: stock_card_report_advanced
+#: model:ir.model.fields,help:stock_card_report_advanced.field_stock_card_wizard__storable_only
+msgid "Only products with 'Track Inventory' enabled."
 msgstr ""
 
 #. module: stock_card_report_advanced
@@ -552,7 +509,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Opening Balance"
 msgstr ""
 
@@ -560,21 +516,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Opening Value"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Opening:"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Other"
 msgstr ""
 
@@ -584,14 +537,12 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Out Quantity"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "PDF"
 msgstr ""
 
@@ -603,7 +554,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Partner"
 msgstr ""
 
@@ -614,14 +564,12 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.stock_card_wizard_view_form
-#, python-format
 msgid "Period"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Point of Sale"
 msgstr ""
 
@@ -633,7 +581,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Product"
 msgstr ""
 
@@ -649,28 +596,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__product_ids
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.stock_card_wizard_view_form
-#, python-format
 msgid "Products"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Purchase Order"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Purchase Return"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Receipt"
 msgstr ""
 
@@ -680,7 +623,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Reference / Origin"
 msgstr ""
 
@@ -693,14 +635,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model:ir.model.fields,field_description:stock_card_report_advanced.field_stock_card_wizard__report_mode
-#, python-format
 msgid "Report Type"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Return"
 msgstr ""
 
@@ -710,21 +650,18 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Running Balance"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Sale Order"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Sales Return"
 msgstr ""
 
@@ -736,7 +673,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Scrap"
 msgstr ""
 
@@ -751,7 +687,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Source Location"
 msgstr ""
 
@@ -771,7 +706,6 @@ msgstr ""
 #: model:ir.actions.report,name:stock_card_report_advanced.action_report_stock_card
 #: model:ir.ui.menu,name:stock_card_report_advanced.menu_stock_card_report
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Stock Card"
 msgstr ""
 
@@ -808,7 +742,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Stock Cards:"
 msgstr ""
 
@@ -816,14 +749,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Stock Value"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Stock Value:"
 msgstr ""
 
@@ -840,28 +771,24 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Summary"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_pdf.py:0
-#, python-format
 msgid "Tax ID: %s"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/js/stock_card_report.js:0
-#, python-format
 msgid "The XLSX export failed."
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "The selected warehouse does not belong to the selected company."
 msgstr ""
 
@@ -878,7 +805,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "Total Stock Value"
 msgstr ""
 
@@ -888,7 +814,6 @@ msgstr ""
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Totals / Closing Balance"
 msgstr ""
 
@@ -905,7 +830,6 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Unbuild"
 msgstr ""
 
@@ -913,21 +837,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:stock_card_report_advanced.report_stock_card
-#, python-format
 msgid "Unit Cost"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "Unit Cost:"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/report/stock_card_xlsx.py:0
-#, python-format
 msgid "UoM"
 msgstr ""
 
@@ -939,14 +860,12 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Vendor Bill"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Vendor Credit Note"
 msgstr ""
 
@@ -968,20 +887,17 @@ msgstr ""
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "Weekly Totals"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-javascript
 #: code:addons/stock_card_report_advanced/static/src/xml/stock_card_report.xml:0
-#, python-format
 msgid "XLSX"
 msgstr ""
 
 #. module: stock_card_report_advanced
 #. odoo-python
 #: code:addons/stock_card_report_advanced/models/stock_card_engine.py:0
-#, python-format
 msgid "You are not allowed to access the stock data of this company."
 msgstr ""

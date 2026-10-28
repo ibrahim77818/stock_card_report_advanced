@@ -136,7 +136,7 @@ class TestStockCardInvoiceNumbers(StockCardCommon):
         })
         po.button_confirm()
         picking = po.picking_ids
-        picking.move_ids.quantity_done = 5
+        picking.move_ids.write({"quantity": 5, "picked": True})
         picking.button_validate()
         po.action_create_invoice()
         bill = po.invoice_ids
@@ -158,7 +158,7 @@ class TestStockCardInvoiceNumbers(StockCardCommon):
         })
         so.action_confirm()
         picking = so.picking_ids
-        picking.move_ids.quantity_done = 2
+        picking.move_ids.write({"quantity": 2, "picked": True})
         picking.button_validate()
         invoice = so._create_invoices()
         invoice.action_post()
@@ -174,7 +174,7 @@ class TestStockCardInvoiceNumbers(StockCardCommon):
             "order_line": [(0, 0, {"product_id": self.product.id, "product_qty": 3, "price_unit": 10})],
         })
         po.button_confirm()
-        po.picking_ids.move_ids.quantity_done = 3
+        po.picking_ids.move_ids.write({"quantity": 3, "picked": True})
         po.picking_ids.button_validate()
         po.action_create_invoice()  # left in draft
         line = self.engine.get_lines(self._today_options())[0]

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="stock_card_report_advanced.StockCardReport" owl="1">
+    <t t-name="stock_card_report_advanced.StockCardReport">
         <div class="o_action o_stock_card_report">
             <div class="o_sc_toolbar">
                 <div class="o_sc_heading">
                     <h2 class="o_sc_h">Stock Card</h2>
                     <div class="o_sc_period" t-if="state.meta.period_label">
-                        <t t-esc="state.meta.period_label"/>
-                        <span class="o_sc_dot" t-esc="'·'"/>
-                        <t t-esc="state.meta.company_name"/>
+                        <t t-out="state.meta.period_label"/>
+                        <span class="o_sc_dot" t-out="'·'"/>
+                        <t t-out="state.meta.company_name"/>
                     </div>
                 </div>
                 <div class="o_sc_actions">
@@ -26,12 +26,12 @@
             </div>
 
             <div class="o_sc_filters" t-if="state.meta.locations_label">
-                <span class="o_sc_chip"><i class="fa fa-map-marker me-1"/><t t-esc="state.meta.locations_label"/></span>
-                <span class="o_sc_chip"><i class="fa fa-cubes me-1"/><t t-esc="state.meta.products_label"/></span>
-                <span class="o_sc_chip"><i class="fa fa-folder-o me-1"/><t t-esc="state.meta.categories_label"/></span>
-                <span class="o_sc_chip"><i class="fa fa-clock-o me-1"/><t t-esc="state.meta.tz"/></span>
-                <span class="o_sc_chip"><i class="fa fa-list me-1"/><t t-esc="state.meta.mode_label"/></span>
-                <span class="o_sc_chip o_sc_chip_value" t-if="state.meta.show_valuation">Stock Value: <b t-esc="formatMoney(state.meta.total_closing_value)"/></span>
+                <span class="o_sc_chip"><i class="fa fa-map-marker me-1"/><t t-out="state.meta.locations_label"/></span>
+                <span class="o_sc_chip"><i class="fa fa-cubes me-1"/><t t-out="state.meta.products_label"/></span>
+                <span class="o_sc_chip"><i class="fa fa-folder-o me-1"/><t t-out="state.meta.categories_label"/></span>
+                <span class="o_sc_chip"><i class="fa fa-clock-o me-1"/><t t-out="state.meta.tz"/></span>
+                <span class="o_sc_chip"><i class="fa fa-list me-1"/><t t-out="state.meta.mode_label"/></span>
+                <span class="o_sc_chip o_sc_chip_value" t-if="state.meta.show_valuation">Stock Value: <b t-out="formatMoney(state.meta.total_closing_value)"/></span>
             </div>
 
             <div class="o_sc_body">
@@ -40,14 +40,14 @@
                 </t>
                 <t t-elif="state.error">
                     <div class="alert alert-warning o_sc_state_alert" role="alert">
-                        <t t-esc="state.error"/>
+                        <t t-out="state.error"/>
                     </div>
                 </t>
                 <t t-else="">
                     <div class="o_sc_subbar">
                         <input type="search" class="form-control o_sc_search" placeholder="Filter products or locations…"
                                t-att-value="state.search" t-on-input="onSearchInput"/>
-                        <span class="o_sc_count">Stock Cards: <b><t t-esc="filteredGroups.length"/> / <t t-esc="state.groups.length"/></b></span>
+                        <span class="o_sc_count">Stock Cards: <b><t t-out="filteredGroups.length"/> / <t t-out="state.groups.length"/></b></span>
                         <button class="btn btn-link" t-on-click="expandAll" t-if="state.groups.length">
                             <i class="fa fa-expand me-1"/>Expand all
                         </button>
@@ -70,7 +70,7 @@
                                     <th class="o_sc_c_num">Out Quantity</th>
                                     <th class="o_sc_c_num">Running Balance</th>
                                     <th t-if="state.meta.show_valuation" class="o_sc_c_num">
-                                        Balance Value <span class="o_sc_cur" t-esc="state.meta.currency_name"/>
+                                        Balance Value <span class="o_sc_cur" t-out="state.meta.currency_name"/>
                                     </th>
                                 </tr>
                                 <tr t-else="">
@@ -83,7 +83,7 @@
                                     <th class="o_sc_c_num">Out Quantity</th>
                                     <th class="o_sc_c_num">Running Balance</th>
                                     <th t-if="state.meta.show_valuation" class="o_sc_c_num">
-                                        Balance Value <span class="o_sc_cur" t-esc="state.meta.currency_name"/>
+                                        Balance Value <span class="o_sc_cur" t-out="state.meta.currency_name"/>
                                     </th>
                                 </tr>
                             </thead>
@@ -93,24 +93,24 @@
                                         <td t-att-colspan="isSummary ? 1 : 5" t-att-class="isSummary ? 'o_sc_group_stacked' : ''">
                                             <i t-att-class="'fa fa-fw o_sc_caret ' + (state.expanded[group.key] ? 'fa-caret-down' : 'fa-caret-right')"/>
                                             <a href="#" class="o_sc_product" t-on-click.prevent.stop="() => this.openProduct(group)"
-                                               t-esc="group.product_name"/>
+                                               t-out="group.product_name"/>
                                             <t t-if="group.location_name">
-                                                <span class="o_sc_dot" t-esc="'·'"/>
+                                                <span class="o_sc_dot" t-out="'·'"/>
                                                 <a href="#" class="o_sc_location" t-on-click.prevent.stop="() => this.openLocation(group.location_id)"
-                                                   t-esc="group.location_name"/>
+                                                   t-out="group.location_name"/>
                                             </t>
-                                            <span class="badge o_sc_badge" t-esc="group.uom_name"/>
+                                            <span class="badge o_sc_badge" t-out="group.uom_name"/>
                                             <span class="o_sc_group_meta">
-                                                <span class="o_sc_meta_small">Opening: <b t-esc="formatQty(group.opening)"/></span>
-                                                <span class="o_sc_meta_small">Movements: <b t-esc="group.move_count"/></span>
-                                                <span t-if="state.meta.show_valuation" class="o_sc_meta_small">Unit Cost: <b t-esc="formatMoney(group.unit_cost, true)"/></span>
+                                                <span class="o_sc_meta_small">Opening: <b t-out="formatQty(group.opening)"/></span>
+                                                <span class="o_sc_meta_small">Movements: <b t-out="group.move_count"/></span>
+                                                <span t-if="state.meta.show_valuation" class="o_sc_meta_small">Unit Cost: <b t-out="formatMoney(group.unit_cost, true)"/></span>
                                             </span>
                                         </td>
-                                        <td class="o_sc_num o_sc_in" t-esc="formatQty(group.qty_in)"/>
-                                        <td class="o_sc_num o_sc_out" t-esc="formatQty(group.qty_out)"/>
-                                        <td t-att-class="'o_sc_num o_sc_bal ' + balanceClass(group.closing)" t-esc="formatQty(group.closing)"/>
+                                        <td class="o_sc_num o_sc_in" t-out="formatQty(group.qty_in)"/>
+                                        <td class="o_sc_num o_sc_out" t-out="formatQty(group.qty_out)"/>
+                                        <td t-att-class="'o_sc_num o_sc_bal ' + balanceClass(group.closing)" t-out="formatQty(group.closing)"/>
                                         <td t-if="state.meta.show_valuation" t-att-class="'o_sc_num o_sc_value ' + balanceClass(group.closing_value)"
-                                            t-esc="formatMoney(group.closing_value)"/>
+                                            t-out="formatMoney(group.closing_value)"/>
                                     </tr>
                                     <t t-if="state.expanded[group.key]">
                                         <tr t-if="state.loadingKeys[group.key]" class="o_sc_loading_row">
@@ -119,51 +119,51 @@
                                         <t t-else="">
                                             <tr class="o_sc_opening">
                                                 <td t-att-colspan="isSummary ? 3 : 7">Opening Balance</td>
-                                                <td t-att-class="'o_sc_num ' + balanceClass(group.opening)" t-esc="formatQty(group.opening)"/>
-                                                <td t-if="state.meta.show_valuation" class="o_sc_num" t-esc="formatMoney(group.opening_value)"/>
+                                                <td t-att-class="'o_sc_num ' + balanceClass(group.opening)" t-out="formatQty(group.opening)"/>
+                                                <td t-if="state.meta.show_valuation" class="o_sc_num" t-out="formatMoney(group.opening_value)"/>
                                             </tr>
                                             <t t-foreach="state.lines[group.key] || []" t-as="line" t-key="line.uid">
                                             <tr t-if="isSummary" class="o_sc_line">
-                                                <td class="o_sc_nowrap" t-esc="line.date_display"/>
-                                                <td class="o_sc_num o_sc_in" t-esc="formatQty(line.qty_in, true)"/>
-                                                <td class="o_sc_num o_sc_out" t-esc="formatQty(line.qty_out, true)"/>
+                                                <td class="o_sc_nowrap" t-out="line.date_display"/>
+                                                <td class="o_sc_num o_sc_in" t-out="formatQty(line.qty_in, true)"/>
+                                                <td class="o_sc_num o_sc_out" t-out="formatQty(line.qty_out, true)"/>
                                                 <td t-att-class="'o_sc_num o_sc_bal ' + balanceClass(line.running_balance)"
-                                                    t-esc="formatQty(line.running_balance)"/>
+                                                    t-out="formatQty(line.running_balance)"/>
                                                 <td t-if="state.meta.show_valuation" t-att-class="'o_sc_num o_sc_value ' + balanceClass(line.balance_value)"
-                                                    t-esc="formatMoney(line.balance_value)"/>
+                                                    t-out="formatMoney(line.balance_value)"/>
                                             </tr>
                                             <tr t-else="" class="o_sc_line">
-                                                <td class="o_sc_nowrap" t-esc="line.date_display"/>
+                                                <td class="o_sc_nowrap" t-out="line.date_display"/>
                                                 <td>
                                                     <a href="#" t-on-click.prevent="() => this.openLine(line)"
-                                                       t-esc="line.reference || '—'"/>
+                                                       t-out="line.reference || '—'"/>
                                                     <div t-if="line.origin or line.invoice_refs" class="o_sc_origin">
-                                                        <t t-esc="line.origin"/>
+                                                        <t t-out="line.origin"/>
                                                         <t t-if="line.invoice_refs">
-                                                            <span class="o_sc_dot" t-esc="'·'"/>
+                                                            <span class="o_sc_dot" t-out="'·'"/>
                                                             <a href="#" class="o_sc_inv" t-att-title="line.invoice_label"
-                                                               t-on-click.prevent="() => this.openInvoices(line)" t-esc="line.invoice_refs"/>
+                                                               t-on-click.prevent="() => this.openInvoices(line)" t-out="line.invoice_refs"/>
                                                         </t>
                                                     </div>
                                                 </td>
-                                                <td><span t-att-class="'o_sc_type o_sc_type_' + line.move_type" t-esc="line.move_type_label"/></td>
+                                                <td><span t-att-class="'o_sc_type o_sc_type_' + line.move_type" t-out="line.move_type_label"/></td>
                                                 <!-- virtual locations (vendors, customers, adjustments, scrap...) are left blank -->
-                                                <td t-esc="line.src_virtual ? '' : line.src_name"/>
-                                                <td t-esc="line.dst_virtual ? '' : line.dst_name"/>
-                                                <td class="o_sc_num o_sc_in" t-esc="formatQty(line.qty_in, true)"/>
-                                                <td class="o_sc_num o_sc_out" t-esc="formatQty(line.qty_out, true)"/>
+                                                <td t-out="line.src_virtual ? '' : line.src_name"/>
+                                                <td t-out="line.dst_virtual ? '' : line.dst_name"/>
+                                                <td class="o_sc_num o_sc_in" t-out="formatQty(line.qty_in, true)"/>
+                                                <td class="o_sc_num o_sc_out" t-out="formatQty(line.qty_out, true)"/>
                                                 <td t-att-class="'o_sc_num o_sc_bal ' + balanceClass(line.running_balance)"
-                                                    t-esc="formatQty(line.running_balance)"/>
+                                                    t-out="formatQty(line.running_balance)"/>
                                                 <td t-if="state.meta.show_valuation" t-att-class="'o_sc_num o_sc_value ' + balanceClass(line.balance_value)"
-                                                    t-esc="formatMoney(line.balance_value)"/>
+                                                    t-out="formatMoney(line.balance_value)"/>
                                             </tr>
                                             </t>
                                             <tr class="o_sc_total">
                                                 <td t-att-colspan="isSummary ? 1 : 5" class="text-end">Totals / Closing Balance</td>
-                                                <td class="o_sc_num" t-esc="formatQty(group.qty_in)"/>
-                                                <td class="o_sc_num" t-esc="formatQty(group.qty_out)"/>
-                                                <td t-att-class="'o_sc_num ' + balanceClass(group.closing)" t-esc="formatQty(group.closing)"/>
-                                                <td t-if="state.meta.show_valuation" class="o_sc_num" t-esc="formatMoney(group.closing_value)"/>
+                                                <td class="o_sc_num" t-out="formatQty(group.qty_in)"/>
+                                                <td class="o_sc_num" t-out="formatQty(group.qty_out)"/>
+                                                <td t-att-class="'o_sc_num ' + balanceClass(group.closing)" t-out="formatQty(group.closing)"/>
+                                                <td t-if="state.meta.show_valuation" class="o_sc_num" t-out="formatMoney(group.closing_value)"/>
                                             </tr>
                                         </t>
                                     </t>

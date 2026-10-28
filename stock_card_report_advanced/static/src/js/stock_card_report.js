@@ -1,17 +1,19 @@
-/** @odoo-module **/
-
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { download } from "@web/core/network/download";
 import { browser } from "@web/core/browser/browser";
 import { formatFloat } from "@web/views/fields/formatters";
-import { _lt } from "@web/core/l10n/translation";
+import { _t } from "@web/core/l10n/translation";
 
 const STORAGE_KEY = "stock_card_report_advanced.options";
 const REPORT_NAME = "stock_card_report_advanced.report_stock_card";
 
 export class StockCardReport extends Component {
+    static template = "stock_card_report_advanced.StockCardReport";
+    // standard client action props (action, actionId, updateActionState, className)
+    static props = ["*"];
+
     setup() {
         this.orm = useService("orm");
         this.actionService = useService("action");
@@ -58,7 +60,7 @@ export class StockCardReport extends Component {
     async loadSummary() {
         if (!this.options) {
             this.state.loading = false;
-            this.state.error = _lt("No report filters found. Open the Stock Card filters to run the report.");
+            this.state.error = _t("No report filters found. Open the Stock Card filters to run the report.");
             return;
         }
         this.state.loading = true;
@@ -266,14 +268,12 @@ export class StockCardReport extends Component {
                 data: { options: JSON.stringify(this.options) },
             });
         } catch (error) {
-            this.notification.add(_lt("The XLSX export failed."), { type: "danger" });
+            this.notification.add(_t("The XLSX export failed."), { type: "danger" });
             throw error;
         } finally {
             this.ui.unblock();
         }
     }
 }
-
-StockCardReport.template = "stock_card_report_advanced.StockCardReport";
 
 registry.category("actions").add("stock_card_report_advanced.stock_card_report", StockCardReport);
